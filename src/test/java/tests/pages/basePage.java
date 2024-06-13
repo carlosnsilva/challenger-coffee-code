@@ -127,7 +127,7 @@ public class basePage {
     }
 
     public void fillInField(WebElement element, String value){
-        waitSeconds(3);
+        waitSeconds(1);
         element.sendKeys(value);
     }
 

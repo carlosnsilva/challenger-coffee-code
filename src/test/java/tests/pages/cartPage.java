@@ -14,7 +14,6 @@ public class cartPage extends basePage{
     @FindBy(xpath = ".//td[@class='product-price']/span/bdi/span")
     private WebElement priceProduct;
 
-
     @FindBy(xpath = ".//div[@class='wc-proceed-to-checkout']/a")
     private WebElement continueBuyButton;
 
