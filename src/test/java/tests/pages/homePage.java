@@ -37,7 +37,7 @@ public class homePage extends basePage{
         moveCursorToClick(buttonBuy);
         moveCursorToClick(viewCarButton);
 
-        return new cartPage();
+        return new cartPage(driver);
     }
 
 
