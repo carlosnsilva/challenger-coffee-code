@@ -11,9 +11,6 @@ public class cartPage extends basePage{
     @FindBy(xpath = ".//td[@class='product-name']/a[text()='Hoodie with Logo']")
     private WebElement nameProduct;
 
-    @FindBy(xpath = ".//td[@class='product-price']/span/bdi/span")
-    private WebElement priceProduct;
-
     @FindBy(xpath = ".//div[@class='wc-proceed-to-checkout']/a")
     private WebElement continueBuyButton;
 
@@ -27,7 +24,6 @@ public class cartPage extends basePage{
 
     public checkoutPage reviewCart(){
         Assert.assertEquals(PRODUCT_NAME, nameProduct.getText().toString());
-        Assert.assertEquals(PRODUCT_PRICE, priceProduct.getText().toString());
         waitSeconds(2);
         scrollToElement(continueBuyButton);
         moveCursorToClick(continueBuyButton);

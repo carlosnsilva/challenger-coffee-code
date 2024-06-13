@@ -1,5 +1,4 @@
 # language: pt
-# enconding: UTF-8
 # Autor: Carlos Nunes
 
 

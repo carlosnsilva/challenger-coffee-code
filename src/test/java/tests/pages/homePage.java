@@ -13,7 +13,7 @@ public class homePage extends basePage{
     @FindBy(xpath = ".//*[@id='main']/ul/li[3]/a[2]")
     private WebElement buttonBuy;
 
-    @FindBy(xpath = ".//*[text()='Ver carrinho']")
+    @FindBy(xpath = ".//*[@id='main']/ul/li[3]/a[3]")
     private WebElement viewCarButton;
 
     public static final String HOODIE_PRODUCT = "Hoodie";
@@ -25,16 +25,19 @@ public class homePage extends basePage{
         start(URL_HOMEPAGE);
     }
 
-    public homePage searchProduct(){
+    public void searchProduct(){
         moveCursorToClick(searchBar);
         fillInField(searchBar, HOODIE_PRODUCT);
         pressEnter(searchBar);
 
-        return new homePage();
     }
 
     public cartPage selectProduct(){
+        scrollToElement(buttonBuy);
+        waitSeconds(90);
         moveCursorToClick(buttonBuy);
+        waitSeconds(5);
+        scrollToElement(viewCarButton);
         moveCursorToClick(viewCarButton);
 
         return new cartPage(driver);

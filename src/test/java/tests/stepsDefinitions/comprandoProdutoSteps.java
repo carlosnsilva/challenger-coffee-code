@@ -1,4 +1,4 @@
-package tests.steps;
+package tests.stepsDefinitions;
 
 import io.cucumber.java.pt.*;
 import tests.pages.*;
@@ -22,12 +22,12 @@ public class comprandoProdutoSteps {
 
 
     }
-    @Quando("Adiciono ao carrinho")
+    @Quando("adiciono ao carrinho")
     public void adiciono_ao_carrinho() {
         pageCart = pageHome.selectProduct();
 
     }
-    @Quando("faço a verificação do carrinho")
+    @Quando("faco a verificacao do carrinho")
     public void faco_a_verificacao_do_carrinho() {
         pageCheckout = pageCart.reviewCart();
         pageCheckout.completeForm();
@@ -36,7 +36,7 @@ public class comprandoProdutoSteps {
     public void seleciono_o_metodo_de_pagamento() {
         pageCheckout.selectPaymentMethod();
     }
-    @Quando("faco a revisão do pedido")
+    @Quando("faco a revisao do pedido")
     public void faco_a_revisao_do_pedido() {
         pageCheckout.validateInformation();
     }

@@ -12,7 +12,7 @@ public class basePage {
     private JavascriptExecutor jse;
 
     public basePage(WebDriver driver) {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         if (driver != null) {
             this.driver = driver;
         } else {
@@ -115,7 +115,6 @@ public class basePage {
 
         action.moveToElement(element).click().build().perform();
     }
-
     public void scroolEasy() {
         jse = (JavascriptExecutor) driver;
         jse.executeScript("scrollBy(0,700)");
@@ -134,5 +133,12 @@ public class basePage {
     public void pressEnter(WebElement element){
         waitSeconds(3);
         element.sendKeys(Keys.ENTER);
+    }
+
+    public void resetCursor(WebElement element){
+        waitSeconds(1);
+        Actions action = new Actions(driver);
+
+        action.moveToElement(element, 0,0).perform();
     }
 }

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.Random;
+
 public class checkoutPage extends basePage{
 
     @FindBy(xpath = ".//input[@id='billing_first_name']")
@@ -26,20 +28,20 @@ public class checkoutPage extends basePage{
     private WebElement fieldPhone;
     @FindBy(xpath = ".//input[@id='billing_email']")
     private WebElement fieldEmailAddress;
-    @FindBy(xpath = ".//input[@id='payment_method_getnet-pix']")
+    @FindBy(xpath = ".//*[@id='payment']/ul/li[3]/label")
     private WebElement checkboxPix;
     @FindBy(xpath = ".//button[@id='place_order']")
     private WebElement finallyButton;
 
     public static final String CLIENT_NAME = "Testando";
     public static final String CLIENT_LASTNAME = "da Silva";
-    public static final String CLIENT_CPF = "00000000000";
-    public static final String CLIENT_CEP = "01001000";
+    public static final String CLIENT_CPF = "096.592.464-55";
+    public static final String CLIENT_CEP = "01001-000";
     public static final String CLIENT_ADDRESS = "Praça da Sé";
     public static final String CLIENT_ADDRESS_NUMBER = "10";
     public static final String CLIENT_CITY = "São Paulo";
-    public static final String CLIENT_PHONE = "83993035484";
-    public static final String CLIENT_EMAIL = "cmanoel17@gmail.com";
+    public static final String CLIENT_PHONE = "(83) 99303-5484";
+    public String CLIENT_EMAIL = generateEmailAddress()+"@gmail.com";
 
 
     public checkoutPage(WebDriver driver){
@@ -59,11 +61,9 @@ public class checkoutPage extends basePage{
         moveCursorToClick(fieldCPF);
         fillInField(fieldCPF, CLIENT_CPF);
 
-        moveCursorToClick(checkboxPix);
-
         moveCursorToClick(fieldCEP);
         fillInField(fieldCEP, CLIENT_CEP);
-
+        waitSeconds(3);
         scrollToElement(fieldNumber);
 
         moveCursorToClick(fieldAddress);
@@ -78,32 +78,55 @@ public class checkoutPage extends basePage{
         moveCursorToClick(fieldPhone);
         fillInField(fieldPhone, CLIENT_PHONE);
 
+        scrollToElement(fieldEmailAddress);
+
         moveCursorToClick(fieldEmailAddress);
         fillInField(fieldEmailAddress, CLIENT_EMAIL);
 
     }
 
     public void selectPaymentMethod() {
+        scrollToElement(checkboxPix);
+        waitSeconds(4);
         moveCursorToClick(checkboxPix);
+        waitSeconds(15);
     }
 
     public void validateInformation(){
         System.out.println("Validando as informações antes de finalizar o pedido");
-        Assert.assertEquals(CLIENT_NAME, fieldName.getText().toString());
-        Assert.assertEquals(CLIENT_LASTNAME, fieldLastname.getText().toString());
-        Assert.assertEquals(CLIENT_CPF, fieldCPF.getText().toString());
-        Assert.assertEquals(CLIENT_CEP, fieldCEP.getText().toString());
-        Assert.assertEquals(CLIENT_ADDRESS, fieldAddress.getText().toString());
-        Assert.assertEquals(CLIENT_ADDRESS_NUMBER, fieldAddress.getText().toString());
-        Assert.assertEquals(CLIENT_CITY, fieldCity.getText().toString());
-        Assert.assertEquals(CLIENT_PHONE, fieldPhone.getText().toString());
-        Assert.assertEquals(CLIENT_EMAIL, fieldEmailAddress.getText().toString());
+        waitSeconds(3);
+        Assert.assertEquals(CLIENT_NAME, fieldName.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_LASTNAME, fieldLastname.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_CPF, fieldCPF.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_CEP, fieldCEP.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_ADDRESS, fieldAddress.getAttribute("value").toString());
+        waitSeconds(3);
+        Assert.assertEquals(CLIENT_ADDRESS_NUMBER, fieldNumber.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_CITY, fieldCity.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_PHONE, fieldPhone.getAttribute("value").toString());
+        Assert.assertEquals(CLIENT_EMAIL, fieldEmailAddress.getAttribute("value").toString());
     }
     public confirmPage finallyOrder(){
+        scrollToElement(finallyButton);
+        waitSeconds(6);
         moveCursorToClick(finallyButton);
+        waitTime(9000);
+        System.out.println("Realizando o pedido");
 
         return new confirmPage(driver);
     }
 
+    private String generateEmailAddress(){
+        String caracters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        StringBuilder sb = new StringBuilder();
+
+        Random rd = new Random();
+        while (sb.length()< 10){
+            int index = (int) (rd.nextFloat() * caracters.length());
+            sb.append(caracters.charAt(index));
+        }
+
+        return sb.toString();
+    }
 
 }
