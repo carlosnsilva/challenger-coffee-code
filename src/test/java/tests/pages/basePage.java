@@ -1,9 +1,6 @@
 package tests.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
@@ -113,6 +110,7 @@ public class basePage {
     }
 
     public void moveCursorToClick(WebElement element) {
+        waitSeconds(1);
         Actions action = new Actions(driver);
 
         action.moveToElement(element).click().build().perform();
@@ -126,5 +124,15 @@ public class basePage {
     public void scrollToElement(WebElement element) {
         jse = (JavascriptExecutor) driver;
         jse.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    public void fillInField(WebElement element, String value){
+        waitSeconds(3);
+        element.sendKeys(value);
+    }
+
+    public void pressEnter(WebElement element){
+        waitSeconds(3);
+        element.sendKeys(Keys.ENTER);
     }
 }
