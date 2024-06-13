@@ -1,5 +1,6 @@
 package tests.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,7 +47,7 @@ public class checkoutPage extends basePage{
         PageFactory.initElements(driver, this);
     }
 
-    public confirmPage completeForm(){
+    public void completeForm(){
         scrollToElement(fieldCEP);
 
         moveCursorToClick(fieldName);
@@ -80,11 +81,29 @@ public class checkoutPage extends basePage{
         moveCursorToClick(fieldEmailAddress);
         fillInField(fieldEmailAddress, CLIENT_EMAIL);
 
-        moveCursorToClick(checkboxPix);
+    }
 
+    public void selectPaymentMethod() {
+        moveCursorToClick(checkboxPix);
+    }
+
+    public void validateInformation(){
+        System.out.println("Validando as informações antes de finalizar o pedido");
+        Assert.assertEquals(CLIENT_NAME, fieldName.getText().toString());
+        Assert.assertEquals(CLIENT_LASTNAME, fieldLastname.getText().toString());
+        Assert.assertEquals(CLIENT_CPF, fieldCPF.getText().toString());
+        Assert.assertEquals(CLIENT_CEP, fieldCEP.getText().toString());
+        Assert.assertEquals(CLIENT_ADDRESS, fieldAddress.getText().toString());
+        Assert.assertEquals(CLIENT_ADDRESS_NUMBER, fieldAddress.getText().toString());
+        Assert.assertEquals(CLIENT_CITY, fieldCity.getText().toString());
+        Assert.assertEquals(CLIENT_PHONE, fieldPhone.getText().toString());
+        Assert.assertEquals(CLIENT_EMAIL, fieldEmailAddress.getText().toString());
+    }
+    public confirmPage finallyOrder(){
         moveCursorToClick(finallyButton);
 
         return new confirmPage(driver);
-
     }
+
+
 }
