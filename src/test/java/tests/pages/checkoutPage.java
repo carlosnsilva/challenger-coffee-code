@@ -93,7 +93,6 @@ public class checkoutPage extends basePage{
     }
 
     public void validateInformation(){
-        System.out.println("Validando as informações antes de finalizar o pedido");
         waitSeconds(3);
         Assert.assertEquals(CLIENT_NAME, fieldName.getAttribute("value").toString());
         Assert.assertEquals(CLIENT_LASTNAME, fieldLastname.getAttribute("value").toString());
@@ -111,7 +110,6 @@ public class checkoutPage extends basePage{
         waitSeconds(6);
         moveCursorToClick(finallyButton);
         waitTime(9000);
-        System.out.println("Realizando o pedido");
 
         return new confirmPage(driver);
     }
